@@ -26,7 +26,7 @@ const init = async (client: PoolClient) => {
 
 const healthCheck = async (client: PoolClient) => {
   const result = await client.query('SELECT 1');
-  console.log('Health check result:', result.rows.length === 1 ? 'OK' : 'ERROR');
+  console.log('DB Health check:', result.rows.length === 1 ? 'OK' : 'ERROR');
 }
 
 export const startDB = async () => {

@@ -23,5 +23,10 @@ app.get('/reset', async (req, res) => {
   res.json(result.rows[0]);
 })
 
+app.get('/health', (req, res) => {
+  console.log('Health check - ok');
+  res.sendStatus(200);
+});
+
 
 export { app };

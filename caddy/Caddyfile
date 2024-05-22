@@ -1,0 +1,9 @@
+:3000 {
+    encode zstd gzip
+    reverse_proxy web1:3000 web2:3000 {
+        health_uri /health
+        health_interval 5s
+        health_timeout 3s
+        health_status 200
+    }
+}

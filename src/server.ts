@@ -10,9 +10,8 @@ const start = async () => {
   });
 };
 
-start();
 
-process.on('SIGINT', async () => {
+const handleExit = () => {
   console.log('Received SIGINT');
   console.log('Stopping server');
   server.close(async () => {
@@ -21,8 +20,16 @@ process.on('SIGINT', async () => {
     await stopDB();
     process.exit(0);
   })
+}
+
+start();
+
+process.on('SIGINT', () => {
+  console.log('Received SIGINT');
+  handleExit()
 })
 
 process.on('SIGTERM', () => {
   console.log('Received SIGTERM');
+  handleExit()
 });

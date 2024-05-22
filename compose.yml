@@ -9,17 +9,23 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
-  web:
+  web1: &web-service
+    image: web
     build: .
     command: npm start
-    ports:
-      - 3000:3000
     depends_on:
       - db
     volumes:
       - .:/app
       - nm:/app/node_modules
-
+  web2:
+    <<: *web-service
+  lb:
+    image: caddy:2-alpine
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "3000:3000"
 volumes:
   pg_data:
   nm:
