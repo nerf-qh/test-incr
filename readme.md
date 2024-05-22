@@ -1,5 +1,7 @@
 # Test updates
 
+## Test
+
 Build
 
 ```bash
@@ -24,11 +26,7 @@ Result should be
 {"value":1000}
 ```
 
-Build
-
-```bash
-docker compose up --build
-```
+## Info
 
 Update by 1
 
@@ -51,5 +49,5 @@ hurl examples/reset.hurl
 ab
 
 ```bash
-ab -n 1000 -c 20 http://127.0.0.1:3000/upd
+ab -n 500 -c 20 http://127.0.0.1:3000/upd
 ```
