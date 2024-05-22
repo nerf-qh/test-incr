@@ -1,0 +1,23 @@
+{
+  "name": "test-upd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "npm": "^10.8.0",
+    "pg": "^8.11.5",
+    "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.6",
+    "tsx": "^4.10.5",
+    "typescript": "^5.4.5"
+  }
+}
