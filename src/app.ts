@@ -24,7 +24,6 @@ app.get('/reset', async (req, res) => {
 })
 
 app.get('/health', (req, res) => {
-  console.log('Health check - ok');
   res.sendStatus(200);
 });
 
