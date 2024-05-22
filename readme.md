@@ -1,23 +1,27 @@
 # Test updates
 
-Run
+Build
 
 ```bash
-docker compose up --build
+docker compose build
 ```
 
-and test
+Start app
 
 ```bash
-hurl examples/reset.hurl &&\
-ab -n 500 -c 20 http://127.0.0.1:3000/upd &&\
-hurl examples/get.hurl
+docker compose --profile=app up
+```
+
+And test
+
+```bash
+docker compose run --rm ab
 ```
 
 Result should be
 
 ```json
-{"value":500}
+{"value":1000}
 ```
 
 Build
@@ -47,5 +51,5 @@ hurl examples/reset.hurl
 ab
 
 ```bash
-ab -n 500 -c 20 http://127.0.0.1:3000/upd
+ab -n 1000 -c 20 http://127.0.0.1:3000/upd
 ```

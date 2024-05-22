@@ -2,5 +2,6 @@
     encode zstd gzip
     reverse_proxy web1:3000 web2:3000 {
         health_uri /health
+        health_status 200
     }
 }

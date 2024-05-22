@@ -1,6 +1,8 @@
 services:
   db:
     image: postgres:16
+    profiles:
+      - app
     ports:
       - 5432:5432
     environment:
@@ -10,6 +12,8 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
   web1: &web-service
+    profiles:
+      - app
     image: web
     build: .
     command: npm start
@@ -18,14 +22,35 @@ services:
     volumes:
       - .:/app
       - nm:/app/node_modules
+    healthcheck:
+      test: curl --fail http://localhost:3000/health || exit 1
+      start_period: 5s
+      interval: 6s
+      timeout: 7s
+      retries: 3
   web2:
     <<: *web-service
   lb:
+    profiles:
+      - app
     image: caddy:2-alpine
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
     ports:
       - "3000:3000"
+    depends_on:
+      web1:
+        condition: service_healthy
+      web2:
+        condition: service_healthy
+    restart: unless-stopped
+  ab:
+    profiles:
+      - test
+    build:
+      context: .
+      dockerfile: Dockerfile.ab
+    command: sh -c "curl http://lb:3000/reset && ab -n 1000 -c 100 http://lb:3000/upd && curl http://lb:3000"
 volumes:
   pg_data:
   nm:
